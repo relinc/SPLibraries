@@ -96,6 +96,7 @@ public class LowPass extends Modifier {
 
 	@Override
 	public double[] applyModifierToData(double[] fullData, DataSubset activatedData) {
+		System.out.println("reached kaiser filter");
 		if(activatedData.getBaseDataType() == baseDataType.LOAD && SPSettings.globalLoadDataLowpassFilter != null){
 			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalLoadDataLowpassFilter.getLowPassValue(), 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
 		}

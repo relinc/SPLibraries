@@ -6,6 +6,7 @@ import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
+import net.relinc.libraries.staticClasses.KftKasierFilter;
 
 public final class SPMath {
 	
@@ -30,7 +31,8 @@ public final class SPMath {
 	public static double[] fourierLowPassFilter(double[] data, double lowPass, double frequency){
 		//try the butterworth method
 		//return butterworthFilter(data, frequency, 3, lowPass, 1.0);
-		return customBuiltLowPassFilter(data, lowPass, frequency);
+		return KftKasierFilter.lowPassKftKasier(data, lowPass, frequency);
+
 	}
 	
 	public static double[] customBuiltLowPassFilter(double[] data, double lowPass, double frequency) {
