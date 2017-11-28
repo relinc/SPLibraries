@@ -18,6 +18,9 @@ public final class KftKasierFilter {
     	if(frequency<=0) {
     		return data;
     	}
+    	if(lowPass ==0) {
+    		return data;
+    	}
     	System.out.println("my new taps");
     	System.out.println(taps);
     	return new KftKasierFilter().lowPassFilter(data, lowPass/frequency, taps);
