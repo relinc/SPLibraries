@@ -26,7 +26,8 @@ public class LowPass extends Modifier {
 	private double lowPassValue;
 	public NumberTextField valueTF;
 	HBox holdGrid = new HBox();
-	
+	private double diameter;
+	public double waveSpeed;
 	public LowPass() {
 		init();
 	}
@@ -35,6 +36,7 @@ public class LowPass extends Modifier {
 	{
 		init();
 		setLowPassValue(val);
+
 	}
 	
 	private void init()
@@ -93,27 +95,26 @@ public class LowPass extends Modifier {
 	public String toString() {
 		return "Lowpass Filter";
 	}
-
 	@Override
 	public double[] applyModifierToData(double[] fullData, DataSubset activatedData) {
-		if(activatedData.getBaseDataType() == baseDataType.LOAD && SPSettings.globalLoadDataLowpassFilter != null){
-			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalLoadDataLowpassFilter.getLowPassValue(), 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
+		//MASSIVE HACK, size of texas
+		int taps = (int) (1.2*2*diameter/waveSpeed/(activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
+		return applyFilterToData(fullData,activatedData,taps);
+	}
+
+	private double[] applyFilterToData(double[] fullData, DataSubset activatedData, int taps) {
+		if(activatedData.getBaseDataType() == baseDataType.LOAD && SPSettings.globalLoadDataLowpassFilter <=0){
+			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalLoadDataLowpassFilter, 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]),taps );
 		}
-		else if(activatedData.getBaseDataType() == baseDataType.DISPLACEMENT && SPSettings.globalDisplacementDataLowpassFilter != null){
-			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalDisplacementDataLowpassFilter.getLowPassValue(), 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
+		else if(activatedData.getBaseDataType() == baseDataType.DISPLACEMENT && SPSettings.globalDisplacementDataLowpassFilter<=0){
+			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalDisplacementDataLowpassFilter, 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]),taps);
 		}
 		else if(activated.get()){
-			return SPMath.fourierLowPassFilter(fullData, lowPassValue, 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
+			return SPMath.fourierLowPassFilter(fullData, lowPassValue, 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]),taps);
 		}
 		else {
 			return fullData;
 		}
-//		if(SPSettings.globalLoadDataLowpassFilter != null) //global overrides.
-//			return SPMath.fourierLowPassFilter(fullData, SPSettings.globalLoadDataLowpassFilter.getLowPassValue(), 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
-//		else if(activated.get())
-//			return SPMath.fourierLowPassFilter(fullData, lowPassValue, 1 / (activatedData.Data.timeData[1] - activatedData.Data.timeData[0]));
-//		else
-//			return fullData;
 	}
 
 	@Override
@@ -135,6 +136,12 @@ public class LowPass extends Modifier {
 
 	public void setLowPassValue(double lowPass) {
 		this.lowPassValue = lowPass;
+	}
+	public void setBarDiameter(double diameter) {
+		this.lowPassValue = diameter;
+	}
+	public void setWaveSpeed(double waveSpeed) {
+		this.waveSpeed = waveSpeed;
 	}
 
 	@Override
