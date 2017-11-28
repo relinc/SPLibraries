@@ -5,8 +5,9 @@ import java.net.URLDecoder;
 
 public final class KftKasierFilter {
     static {
-    	System.setProperty("java.library.path", "C:\\Program Files\\SUREPulse\\app\\libs");
-        System.loadLibrary("C:\\Program Files\\SUREPulse\\app\\libs\\kftKasierFilter");    // loads kftKasierFilter.dll
+    	//System.setProperty("java.library.path", "C:\\Program Files\\SUREPulse\\app\\libs");
+        //System.load("C:\\Program Files\\SUREPulse\\app\\libs\\kftKasierFilter.dll");    // loads kftKasierFilter.dll
+    	System.loadLibrary("kftKasierFilter");
     }
 
     private native double [] lowPassFilter(double [] data, double f_t);
