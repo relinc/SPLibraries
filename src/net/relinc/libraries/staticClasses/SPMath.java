@@ -28,10 +28,10 @@ public final class SPMath {
 		return transformer.transform(padded, TransformType.FORWARD);
 	}
 	
-	public static double[] fourierLowPassFilter(double[] data, double lowPass, double frequency){
+	public static double[] fourierLowPassFilter(double[] data, double lowPass, double frequency, int taps){
 		//try the butterworth method
 		//return butterworthFilter(data, frequency, 3, lowPass, 1.0);
-		return KftKasierFilter.lowPassKftKasier(data, lowPass, frequency);
+		return KftKasierFilter.lowPassKftKasier(data, lowPass, frequency, taps);
 
 	}
 	

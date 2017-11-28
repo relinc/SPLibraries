@@ -10,14 +10,16 @@ public final class KftKasierFilter {
     	System.loadLibrary("kftKasierFilter");
     }
 
-    private native double [] lowPassFilter(double [] data, double f_t);
+    private native double [] lowPassFilter(double [] data, double f_t, int taps);
     
-    public static double[] lowPassKftKasier(double[] data, double lowPass, double frequency)
+    public static double[] lowPassKftKasier(double[] data, double lowPass, double frequency, int taps)
     {
     	System.out.println(lowPass/frequency);
     	if(frequency<=0) {
     		return data;
     	}
-    	return new KftKasierFilter().lowPassFilter(data, lowPass/frequency);
+    	System.out.println("my new taps");
+    	System.out.println(taps);
+    	return new KftKasierFilter().lowPassFilter(data, lowPass/frequency, taps);
     }
 }
