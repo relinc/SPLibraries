@@ -3,8 +3,10 @@ package net.relinc.libraries.sample;
 import java.util.Arrays;
 
 import net.relinc.libraries.data.*;//DataLocation;
+import net.relinc.libraries.data.ModifierFolder.LowPass;
 import net.relinc.libraries.staticClasses.SPMath;
 import net.relinc.libraries.staticClasses.SPOperations;
+import net.relinc.libraries.staticClasses.SPSettings;
 
 public class LoadDisplacementSampleResults {
 
@@ -115,6 +117,11 @@ public class LoadDisplacementSampleResults {
 		double[] displacementTime = null;
 		double[] load = null;
 		double[] loadTime = null;
+		if(SPSettings.globalLoadDataLowpassFilter!= null) {
+			SPSettings.globalLoadDataLowpassFilter = new LowPass(SPSettings.globalLoadDataLowpassFilter.getLowPassValue(),
+																sample.barSetup.IncidentBar.diameter,
+																sample.barSetup.IncidentBar.getWaveSpeed());
+		}
 
 		DataSubset displacementData = sample.getDataSubsetAtLocation(displacementDataLocation);
 		if (displacementData != null){
