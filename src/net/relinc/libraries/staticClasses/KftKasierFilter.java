@@ -23,7 +23,7 @@ public final class KftKasierFilter {
     	System.out.println(lowPass/frequency);
 
     	
-    	return new KftKasierFilter().lowPassFilter(data, lowPass/frequency, taps);
+    	return new KftKasierFilter().lowPassFilter(data, frequency/lowPass, taps);
    
     }
 }
