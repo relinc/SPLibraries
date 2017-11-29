@@ -31,6 +31,9 @@ public final class SPMath {
 	public static double[] fourierLowPassFilter(double[] data, double lowPass, double frequency, int taps){
 		//try the butterworth method
 		//return butterworthFilter(data, frequency, 3, lowPass, 1.0);
+		if(lowPass/frequency>.1) {
+			MovingAverageFilter.movingAverageLowPass(data,lowPass/frequency);
+		}
 		return KftKasierFilter.lowPassKftKasier(data, lowPass, frequency, taps);
 
 	}

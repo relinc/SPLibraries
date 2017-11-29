@@ -103,7 +103,6 @@ public class LowPass extends Modifier {
 	}
 	@Override
 	public double[] applyModifierToData(double[] fullData, DataSubset activatedData) {
-		//MASSIVE HACK, size of texas
 		
 		return applyFilterToData(fullData,activatedData);
 	}
