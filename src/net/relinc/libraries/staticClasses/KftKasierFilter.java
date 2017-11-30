@@ -6,7 +6,7 @@ import java.net.URLDecoder;
 public final class KftKasierFilter {
     static {
     	//System.setProperty("java.library.path", "C:\\Program Files\\SUREPulse\\app\\libs");
-       // System.load("C:\\Program Files\\SUREPulse\\app\\libs\\kftKasierFilter.dll");    // loads kftKasierFilter.dll
+      //  System.load("C:\\Program Files\\SUREPulse\\app\\libs\\kftKasierFilter.dll");    // loads kftKasierFilter.dll
     	System.loadLibrary("kftKasierFilter");
     }
 
@@ -20,7 +20,7 @@ public final class KftKasierFilter {
     	if(lowPass ==0) {
     		return data;
     	}
-    	System.out.println(lowPass/frequency);
+    	System.out.println(frequency/lowPass);
 
     	
     	return new KftKasierFilter().lowPassFilter(data, frequency/lowPass, taps);

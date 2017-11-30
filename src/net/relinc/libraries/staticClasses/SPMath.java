@@ -29,13 +29,13 @@ public final class SPMath {
 	}
 	
 	public static double[] fourierLowPassFilter(double[] data, double lowPass, double frequency, int taps){
-		//try the butterworth method
-		//return butterworthFilter(data, frequency, 3, lowPass, 1.0);
+//		try the butterworth method
+	///	return butterworthFilter(data, frequency, 3, lowPass, 1.0);
 		if(frequency/lowPass>.1) {
 			System.out.println("calling moving average");
-			return MovingAverageFilter.movingAverageLowPass(data,lowPass/frequency);
+		return MovingAverageFilter.movingAverageLowPass(data,lowPass/frequency);
 		}
-		System.out.println("calling kft");
+//		System.out.println("calling kft");
 		return KftKasierFilter.lowPassKftKasier(data, lowPass, frequency, taps);
 
 	}
